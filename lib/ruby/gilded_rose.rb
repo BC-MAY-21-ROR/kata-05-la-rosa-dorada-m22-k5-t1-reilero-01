@@ -10,6 +10,7 @@ class GildedRose
     if (item.name == 'Aged Brie') && (item.quality < 50)
       item.quality += 1
     end
+    max_quality(item)
   end
 
   def sulfuras(item)
@@ -17,54 +18,61 @@ class GildedRose
       item.quality = item.quality
     end
   end
+
   def conjured(item)
     if (item.name == 'Conjured Mana Cake')
       item.quality = item.quality - 2
     end
+    expired_days(item)
+    minimum_quality(item)
   end
 
   def backstage_pass(item)
-    if item.quality == 50
-      return
-    end
+    return if item.quality == 50
     case item.sell_in
     when 6..10 then item.quality += 2
     when 1..5 then item.quality += 3
     when 0 then item.quality = 0
     end
+    max_quality(item)
   end
-  
-  def update_quality
-    @items.each do |item|
-      if (item.name != 'Aged Brie') && (item.name != 'Backstage passes to a TAFKAL80ETC concert')
-        if item.quality.positive? && ((item.name != 'Sulfuras, Hand of Ragnaros') && (item.name != 'Conjured Mana Cake')) # detectar conjured
-          item.quality = item.quality - 1
-        end
-      elsif item.quality < 50
-        item.quality = item.quality + 1
-        if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-          item.quality = item.quality + 1 if item.sell_in < 11 && (item.quality < 50)
-          item.quality = item.quality + 1 if item.sell_in < 6 && (item.quality < 50)
-        end
-      end
-      if (item.name != 'Sulfuras, Hand of Ragnaros') && (item.name != 'Conjured Mana Cake') # detectar conjured
-        item.sell_in = item.sell_in - 1
-      end
-      if item.sell_in.negative?
-        if item.name != 'Aged Brie'
-          if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-            item.quality = item.quality - 1 if item.quality.positive? && (item.name != 'Sulfuras, Hand of Ragnaros')
-          else
-            item.quality = item.quality - item.quality
-          end
-        elsif item.quality < 50
-          item.quality = item.quality + 1
-        end
-      end
-      next unless (item.name == 'Conjured Mana Cake') && item.quality.positive? # conjurado
 
-      item.quality = item.quality - 2
-      item.sell_in = item.sell_in - 1
+  def expired_days(item)
+    item.quality -= 2 if (item.sell_in <= 0)
+    minimum_quality(item)
+  end
+
+  def minimum_quality(item)
+    item.quality = 0 if (item.quality < 0)
+    item.sell_in = 0 if (item.sell_in < 0)
+  end
+
+  def max_quality(item)
+    item.quality = 50 if (item.quality > 50)
+  end
+
+  def normal_items(item)
+    item.quality = item.quality - 1
+    minimum_quality(item)
+    expired_days(item)
+  end
+
+  def rules(item)
+    case item.name 
+    when 'Aged Brie' then aged_brie(item)
+    when 'Sulfuras, Hand of Ragnaros' then sulfuras(item)
+    when 'Backstage passes to a TAFKAL80ETC concert' then backstage_pass(item)
+    when 'Conjured Mana Cake' then conjured(item)
+    else
+      normal_items(item)
+      max_quality(item)
+    end
+  end 
+
+  def update_quality 
+    @items.each do |item|
+      item.sell_in -= 1 
+      self.rules(item)
     end
   end
 end

@@ -66,4 +66,13 @@ describe GildedRose do
     end
   end
 
+  describe '#expired_days' do 
+    it 'quality degrades twice as fast when sell in eq to zero or less' do 
+      item = [Item.new('Elixir of the Mongoose', 0, 2)]
+      gilded_rose = GildedRose.new(item)
+      items = gilded_rose.update_quality
+      expect(items.first.quality).to eq(0)
+    end
+  end
+
 end
