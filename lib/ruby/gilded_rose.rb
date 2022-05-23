@@ -5,10 +5,32 @@ class GildedRose
     @items = items
   end
 
+
   def aged_brie(item)
-    @items.quality
     if (item.name == 'Aged Brie') && (item.quality < 50)
-      item.quality = item.quality + 1
+      item.quality += 1
+    end
+  end
+
+  def sulfuras(item)
+    if (item.name == 'Sulfuras, Hand of Ragnaros')
+      item.quality = item.quality
+    end
+  end
+  def conjured(item)
+    if (item.name == 'Conjured Mana Cake')
+      item.quality = item.quality - 2
+    end
+  end
+
+  def backstage_pass(item)
+    if item.quality == 50
+      return
+    end
+    case item.sell_in
+    when 6..10 then item.quality += 2
+    when 1..5 then item.quality += 3
+    when 0 then item.quality = 0
     end
   end
   
