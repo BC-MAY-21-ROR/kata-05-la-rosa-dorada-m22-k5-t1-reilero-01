@@ -3,7 +3,6 @@
 require File.join(File.dirname(__FILE__), 'gilded_rose')
 
 describe GildedRose do
-  
   describe '#update_quality' do
     it 'does not change the name' do
       items = [Item.new('foo', 0, 0)]
@@ -38,7 +37,6 @@ describe GildedRose do
   end
   describe '#backstage_pass' do
     describe 'increase in quality relative to its sellIn value' do
-
       describe 'when there are 10 or less days left' do
         it 'increase quality by 2' do
           item = [Item.new('Backstage passes to a TAFKAL80ETC concert', 9, 48)]
@@ -66,13 +64,12 @@ describe GildedRose do
     end
   end
 
-  describe '#expired_days' do 
-    it 'quality degrades twice as fast when sell in eq to zero or less' do 
+  describe '#expired_days' do
+    it 'quality degrades twice as fast when sell in eq to zero or less' do
       item = [Item.new('Elixir of the Mongoose', 0, 2)]
       gilded_rose = GildedRose.new(item)
       items = gilded_rose.update_quality
       expect(items.first.quality).to eq(0)
     end
   end
-
 end
