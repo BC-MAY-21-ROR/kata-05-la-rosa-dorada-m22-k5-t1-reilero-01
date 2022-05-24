@@ -41,77 +41,97 @@
       <!-- /#sidebar-wrapper -->
       <div id="page-content-wrapper">
         <div class="container-fluid">
-          <!-- Page Content -->
-<div id="page-content-wrapper">
-  <div class="container-fluid">
-    <div class="row">
-      <!--Page Title -->
-      <div class="Page_Title">
-        <h3>Smells</h3>
-      </div>
-      <!--End Page Title -->
-      <div class="Content_Wrapper">
-        <table id="js-index-table" class="table smells-index-table index-table sortable-table">
-          <thead>
-            <tr>
-              <th width="30%" class="table-header">Smell<span class="sort-type"></span></th>
-              <th width="65%" class="table-header">Locations<span class="sort-type"></span></th>
-              <th width="5%" class="table-header">Status<span class="sort-type"></span></th>
-            </tr>
-          </thead>
-          
-            <tr>
-              <td>DuplicateCode</td>
-              <td>
-                <ul class="nav nav-pills">
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L6">GildedRoseSpec</a>
-                    </li>
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L14">GildedRoseSpec</a>
-                    </li>
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L22">GildedRoseSpec</a>
-                    </li>
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L31">GildedRoseSpec</a>
-                    </li>
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L40">GildedRoseSpec</a>
-                    </li>
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L49">GildedRoseSpec</a>
-                    </li>
-                  
-                    <li role="presentation">
-                      <a href="gilded_rose_spec.html#L58">GildedRoseSpec</a>
-                    </li>
-                  
-                </ul>
-              </td>
-              <td>
-                
-                  <ul class="nav nav-pills">
-                    <li role="presentation">
-                      <td class="centered-cell"><span class="status- circled-text circle"></span></td>
-                    </li>
-                  </ul>
-                
-              </td>
-            </tr>
-          
-        </table>
-      </div>
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Never committed
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>. /</small> texttest_fixture.rb</h3>
     </div>
   </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating a big">
+              A
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">32</span><small> lines of codes</small></div>
+              <div><span class="metric">0</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">N/A</span><small> complexity/method</small></div>
+              <div><span class="metric">0</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">0.0</span><small> complexity</small></div>
+              <div><span class="metric">0</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                0
+                smell
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">#!/usr/bin/ruby -w
+# frozen_string_literal: true
+
+require File.join(File.dirname(__FILE__), &#39;gilded_rose&#39;)
+
+puts &#39;OMGHAI!&#39;
+items = [
+  Item.new(&#39;+5 Dexterity Vest&#39;, 10, 20),
+  Item.new(&#39;Aged Brie&#39;, 2, 0),
+  Item.new(&#39;Elixir of the Mongoose&#39;, 5,  7),
+  Item.new(&#39;Sulfuras, Hand of Ragnaros&#39;, 0, 80),
+  Item.new(&#39;Sulfuras, Hand of Ragnaros&#39;, -1,  80),
+  Item.new(&#39;Backstage passes to a TAFKAL80ETC concert&#39;, 15,  20),
+  Item.new(&#39;Backstage passes to a TAFKAL80ETC concert&#39;, 10,  49),
+  Item.new(&#39;Backstage passes to a TAFKAL80ETC concert&#39;, 5, 49),
+  # This Conjured item does not work properly yet
+  Item.new(&#39;Conjured Mana Cake&#39;, 3, 6) # &lt;-- :O
+]
+
+days = 2
+days = ARGV[0].to_i + 1 if ARGV.size.positive?
+
+gilded_rose = GildedRose.new items
+(0...days).each do |day|
+  puts &quot;-------- day #{day} --------&quot;
+  puts &#39;name, sellIn, quality&#39;
+  items.each do |item|
+    puts item
+  end
+  puts &#39;&#39;
+  gilded_rose.update_quality
+end
+</code>
+  </div>
 </div>
-<!-- /#page-content-wrapper -->
 
         </div>
       </div>

@@ -27,7 +27,7 @@ class GildedRose
     case item.sell_in
     when 6..10 then item.quality += 2
     when 1..5 then item.quality += 3
-    when 0 then item.quality = 0
+    when -10..0 then item.quality = 0
     end
     max_quality(item)
   end
